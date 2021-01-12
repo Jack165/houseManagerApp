@@ -10,6 +10,12 @@
 			}
 		},
 		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登陆"
+			}
+		},
+		{
 			"path": "pages/tabBar/user/user",
 			"style": {
 				"navigationBarTitleText": "我的"

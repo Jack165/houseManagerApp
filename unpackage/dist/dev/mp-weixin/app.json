@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tabBar/main/main",
+    "pages/login/login",
     "pages/tabBar/user/user",
     "pages/tenant/addTenant",
     "pages/tenant/bill/bill",

@@ -1,29 +1,29 @@
 
 image,
-page{
-	width:100%;
-	background-color:#F0F1F3;
+page {
+	width: 100%;
+	background-color: #F0F1F3;
 }
 .swiper {
 	width: 100%;
 	height: 300rpx;
 }
-.middle-split{
-	width:3rpx;
-	height:55rpx;
-	background-color:#F0F1F3;
+.middle-split {
+	width: 3rpx;
+	height: 55rpx;
+	background-color: #F0F1F3;
 }
-.middle-text{
+.middle-text {
 	font-size: 28rpx;
-	color:#333;
-	line-height:40rpx ;
+	color: #333;
+	line-height: 40rpx;
 }
-.middle-num{
+.middle-num {
 	font-size: 30rpx;
-	color:#F33E54;
-	line-height:40rpx ;
+	color: #F33E54;
+	line-height: 40rpx;
 }
-.middle-item{
+.middle-item {
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
@@ -35,7 +35,7 @@ page{
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.middle{
+.middle {
 	background-color: #fff;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -49,8 +49,8 @@ page{
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
-	margin:20rpx 0 20rpx 0;
-	padding:25rpx 0 25rpx 0;
+	margin: 20rpx 0 20rpx 0;
+	padding: 25rpx 0 25rpx 0;
 }
 .top-text {
 	text-align: center;
@@ -114,16 +114,16 @@ page{
 	width: 100rpx;
 	margin-bottom: 0rpx;
 }
-.h-footprint{
+.h-footprint {
 	font-size: 28rpx;
-	color:#666
+	color: #666
 }
-.h-title{
+.h-title {
 	font-size: 30rpx;
-	color:#333
+	color: #333
 }
-.h-text-view{
-	margin-left:20rpx;
+.h-text-view {
+	margin-left: 20rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -134,19 +134,19 @@ page{
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
-	height:160rpx;
+	height: 160rpx;
 }
-.h-img{
-	width:230rpx;
-	height:160rpx;
+.h-img {
+	width: 230rpx;
+	height: 160rpx;
 }
-.h-item{
+.h-item {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-flex:1;
-	-webkit-flex:1;
-	        flex:1;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
@@ -154,18 +154,18 @@ page{
 	-webkit-box-pack: start;
 	-webkit-justify-content: flex-start;
 	        justify-content: flex-start;
-	-webkit-box-align:center;
-	-webkit-align-items:center;
-	        align-items:center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 	border-bottom: 0.5rpx solid #eee;
-	padding:20rpx 0 20rpx;
+	padding: 20rpx 0 20rpx;
 }
 .promotion {
-	background-color:#fff;
-	padding:30rpx;
+	background-color: #fff;
+	padding: 30rpx;
 }
-.promotion-tip{
+.promotion-tip {
 	font-size: 30rpx;
-	color:#666;
+	color: #666;
 }
 

@@ -33,15 +33,15 @@
 			</view>
 			<view class="top-item" @tap="showPage('../../../pages/tenant/tenant')">
 				<image class="top-image" src="../../../static/ke.png"></image>
-				<text class="top-text">租客</text> 
-			</view> 
+				<text class="top-text">租客</text>
+			</view>
 			<view class="top-item" @tap="showPage('../../../pages/tabBar/user/user')">
 				<image class="top-image" src="../../../static/bao.png"></image>
 				<text class="top-text">报表</text>
 			</view>
 		</view>
 		<view class="middle">
-			<view class="middle-item"> 
+			<view class="middle-item">
 				<text class="middle-text">本月待收</text>
 				<text class="middle-num">{{waitIn}}</text>
 			</view>
@@ -78,7 +78,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 <script>
@@ -90,36 +90,53 @@
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName', 'companyCode']),
 		data() {
 			return {
-				'waitIn':1,
-				'houseNum':2,
-				'received':3
+				'waitIn': 1,
+				'houseNum': 2,
+				'received': 3
 			}
-			},
+		},
 		onShow() {
 			if (!this.hasLogin) {
 				return
 			}
-			//this.getStatistics();
 		},
 		onLoad() {
-           uni.request({
-           	url: 'https://wechat.feixingtianxia.cn/house/get_index', //仅为示例，并非真实接口地址。
-           	data: {
-           		text: 'uni.request'
-           	},
-           	header: {
-           		'custom-header': 'hello' //自定义请求头信息
-           	},
-           	success: (res) => {
-			
-                var info=res.data.data;
-					console.log('info-->'+info);
-				this.waitIn=info.waitIn;
-				this.houseNum=info.houseNum;
-				this.received=info.received;
-           		
-           	}
-           });
+			var token;
+			uni.getStorage({
+				key: "token",
+				success(e) {
+					token = e.data;
+				}
+			});
+			if (typeof token === "undefined") {
+				uni.showToast({
+					title: '未登陆',
+					duration: 5000
+				});
+			} else {
+				uni.showToast({
+					title:token,
+					duration: 5000
+				});
+				uni.request({
+					url: 'https://wechat.feixingtianxia.cn/house/get_index', 
+					data: {
+						text: 'uni.request'
+					},
+					header: {
+						'custom-header': 'hello' //自定义请求头信息
+					},
+					success: (res) => {
+
+						var info = res.data.data;
+						console.log('info-->' + info);
+						this.waitIn = info.waitIn;
+						this.houseNum = info.houseNum;
+						this.received = info.received;
+
+					}
+				});
+			}
 
 		},
 		onShareAppMessage() {
@@ -178,43 +195,50 @@
 
 <style>
 	image,
-	page{
-		width:100%;
-		background-color:#F0F1F3;
+	page {
+		width: 100%;
+		background-color: #F0F1F3;
 	}
+
 	.swiper {
 		width: 100%;
 		height: 300rpx;
 	}
-	.middle-split{
-		width:3rpx;
-		height:55rpx;
-		background-color:#F0F1F3;
+
+	.middle-split {
+		width: 3rpx;
+		height: 55rpx;
+		background-color: #F0F1F3;
 	}
-	.middle-text{
+
+	.middle-text {
 		font-size: 28rpx;
-		color:#333;
-		line-height:40rpx ;
+		color: #333;
+		line-height: 40rpx;
 	}
-	.middle-num{
+
+	.middle-num {
 		font-size: 30rpx;
-		color:#F33E54;
-		line-height:40rpx ;
+		color: #F33E54;
+		line-height: 40rpx;
 	}
-	.middle-item{
+
+	.middle-item {
 		flex-direction: column;
 		display: flex;
 		align-items: center;
 	}
-	.middle{
+
+	.middle {
 		background-color: #fff;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
-		margin:20rpx 0 20rpx 0;
-		padding:25rpx 0 25rpx 0;
+		margin: 20rpx 0 20rpx 0;
+		padding: 25rpx 0 25rpx 0;
 	}
+
 	.top-text {
 		text-align: center;
 		font-size: 22rpx;
@@ -267,41 +291,47 @@
 		margin-bottom: 0upx;
 	}
 
-	.h-footprint{
+	.h-footprint {
 		font-size: 28rpx;
-		color:#666
+		color: #666
 	}
-	.h-title{
+
+	.h-title {
 		font-size: 30rpx;
-		color:#333
+		color: #333
 	}
-	.h-text-view{
-		margin-left:20rpx;
+
+	.h-text-view {
+		margin-left: 20rpx;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		height:160rpx;
+		height: 160rpx;
 	}
-	.h-img{
-		width:230rpx;
-		height:160rpx;
+
+	.h-img {
+		width: 230rpx;
+		height: 160rpx;
 	}
-	.h-item{
+
+	.h-item {
 		display: flex;
-		flex:1;
+		flex: 1;
 		flex-direction: row;
 		justify-content: flex-start;
-		align-items:center;
+		align-items: center;
 		border-bottom: 0.5rpx solid #eee;
-		padding:20rpx 0 20rpx;
+		padding: 20rpx 0 20rpx;
 	}
+
 	.promotion {
-		background-color:#fff;
-		padding:30rpx;
-		
+		background-color: #fff;
+		padding: 30rpx;
+
 	}
-	.promotion-tip{
+
+	.promotion-tip {
 		font-size: 30rpx;
-		color:#666;
+		color: #666;
 	}
 </style>

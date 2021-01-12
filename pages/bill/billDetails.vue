@@ -10,7 +10,7 @@
 					<text class="top-text3">{{tenant}}鼓楼区先锋小区602-张三</text>
 				</view>
 				<view class="top-right">
-					<text class="top-text4">催租</text>
+					<text class="top-text4" @tap="onClickChildText">催租</text>
 				</view>
 			</view>
 		</view>
@@ -83,46 +83,51 @@
 
 <script>
 	import bottomBtn from '../../components/bottomBtn.vue';
+	var id;
 	export default {
+		
 		onLoad(option) {
-		console.log(option);
+		id=option.id;
 		},
 		data() {
 			var result;
-			uni.request({
-				url: 'https://wechat.feixingtianxia.cn/house/get_billDetail', //仅为示例，并非真实接口地址。
-				data: {
-					text: 'uni.request'
-				},
-				header: {
-					'custom-header': 'hello' //自定义请求头信息
-				},
-				success: (res) => {
-					console.log(res.data);
-					result = res.data.data;
-					this.status= result.status;
-					this.collectDates= result.collectDates;
-					this.startChangeDate= result.startChangeDate;
-					this.endChangeDate= result.endChangeDate;
-					this.receivableCost= result.receivableCost;
-					this.tenant= result.tenant;
-					this.rent= result.rent;
-					this.deposit= result.deposit;
-					this.watterCost= result.watterCost;
-					this.electricCost= result.electricCost;
-					this.propertyCost= result.propertyCost;
-					this.broadbandCost= result.broadbandCost;
-					
-				}
-			});
+			if(id){
+				uni.request({
+					url: 'https://wechat.feixingtianxia.cn/house/get_billDetail', //仅为示例，并非真实接口地址。
+					data: {
+						id: id
+					},
+					header: {
+						'custom-header': 'hello' //自定义请求头信息
+					},
+					success: (res) => {
+						console.log(res.data);
+						result = res.data.data;
+						this.status= result.status;
+						this.collectDates= result.collectDates;
+						this.startChangeDate= result.startChangeDate;
+						this.endChangeDate= result.endChangeDate;
+						this.receivableCost= result.receivableCost;
+						this.tenant= result.tenant;
+						this.rent= result.rent;
+						this.deposit= result.deposit;
+						this.watterCost= result.watterCost;
+						this.electricCost= result.electricCost;
+						this.propertyCost= result.propertyCost;
+						this.broadbandCost= result.broadbandCost;
+						
+					}
+				});
+			}
+			
 
 			return {
-				        "status":"未到账",
+				        "status":"xxx",
 				        "collectDate":"2020-1-1",
 				        "startChangeDate":"2020-1-1",
 				        "endChangeDate":"2020-1-7",
 				        "receivableCost":"00",
-				        "tenant":"海景别墅1号张三",
+				        "tenant":"xxx",
 				        "rent":"100",
 				        "deposit":"1000",
 				        "watterCost":"10",

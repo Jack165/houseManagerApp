@@ -81,9 +81,18 @@
 		methods: {
 			...mapMutations(['logout']),
 			bindLogin() {
+			uni.getStorage({
+			 key:"token",
+			success(e){
+			//e.data//这就是你想要取的token
+			alert("值:"+e.data);
+			}
+			})
 				uni.navigateTo({
-					url: '../..login/login',
+					url: '../../login/login',
+					
 				});
+				
 			},
 			bindLogout() {
 				this.logout();
