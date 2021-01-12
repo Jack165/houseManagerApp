@@ -1,0 +1,116 @@
+/* 组件的样式 */
+@import url("../common/app.css");
+.bottom-btn-left {
+		background: #eee;
+	}
+	
+	.bottom-btn-right {
+		background: #8EBF59;
+	}
+	
+	.bottom-btn {
+		color: #111;
+		height: 85rpx;
+		flex: 1;
+		display: flex;
+		font-size: 30rpx;
+		justify-content: center;
+		align-items: center;
+	}
+	.bottom-btn-view {
+		position: fixed;
+		bottom:0;
+		left: 0;
+		right:0;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		background-color: #fff;
+		z-index:999;
+	}
+.no-data .text {
+	font-size: 40rpx;
+	color: #bbb;
+}
+
+.no-data .icon {
+	font-size: 350rpx;
+}
+
+.no-data {
+	display: flex;
+	flex: 1;	
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.submit-btn-cancel {
+	margin-right: 10rpx;
+	background: #eee;
+}
+
+.submit-btn-confirm {
+	margin-left: 10rpx;
+	background: #8EBF59;
+}
+
+.submit-btn {
+	color: #111;
+	height: 85rpx;
+	flex: 1;
+	display: flex;
+	border-radius: 80rpx;
+	font-size: 30rpx;
+	justify-content: center;
+	align-items: center;
+}
+
+.submit-btn-view {
+	margin: 15rpx 35rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.s-item .input {
+	height: 40rpx;
+	font-size: 30rpx;
+	padding: 0;
+}
+
+.s-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 8rpx 15rpx;
+	border-radius: 15rpx;
+	margin: 8rpx 15rpx;
+	background-color: #ddd;
+}
+
+.section {
+	font-size: 27rpx;
+	padding: 15rpx 35rpx;
+	color: #888;
+	border-bottom: 1rpx solid #eee;
+}
+
+.item-box text {
+	margin-right: 15rpx;
+	color: #333;
+	font-size: 30rpx;
+	width: 150rpx;
+}
+
+.item-box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 100rpx;
+	padding: 0;
+	margin: 0 35rpx;
+	border-bottom: 1rpx solid #eee;
+}

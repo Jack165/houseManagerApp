@@ -1,0 +1,1 @@
+<view class="item-box"><text>{{title}}</text><input slot="input" placeholder="{{placeholder}}" placeholder-class="placeholder-cls" readonly="{{readonly=='1'?true:false}}" data-event-opts="{{[['input',[['__set_model',['','inputVal','$event',[]]]]]]}}" value="{{inputVal}}" bindinput="__e"/></view>

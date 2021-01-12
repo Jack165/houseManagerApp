@@ -1,0 +1,1 @@
+<view class="bottom-btn-view"><view data-event-opts="{{[['tap',[['leftFun',['$event']]]]]}}" class="bottom-btn bottom-btn-left" bindtap="__e">{{leftText}}</view><view data-event-opts="{{[['tap',[['rightFun',['$event']]]]]}}" class="bottom-btn bottom-btn-right" bindtap="__e">{{rightText}}</view></view>

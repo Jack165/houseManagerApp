@@ -1,0 +1,1 @@
+<view class="submit-btn-view"><view data-event-opts="{{[['tap',[['cancelClick',['$event']]]]]}}" class="submit-btn submit-btn-cancel" bindtap="__e">{{cancelText}}</view><view data-event-opts="{{[['tap',[['confirmClick',['$event']]]]]}}" class="submit-btn submit-btn-confirm" bindtap="__e">{{confirmText}}</view></view>

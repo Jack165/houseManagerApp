@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择房号",
+  "usingComponents": {
+    "search-item": "/components/searchItem"
+  }
+}

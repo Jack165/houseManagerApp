@@ -1,0 +1,6 @@
+
+.btn-logout {
+	background: #fa6b4b;
+	color: #FFFFFF;
+}
+

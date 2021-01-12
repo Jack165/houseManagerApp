@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "添加租客",
+  "usingComponents": {
+    "section-title": "/components/sectionTitle",
+    "input-item": "/components/inputItem",
+    "select-item": "/components/selectItem",
+    "submit-btn": "/components/submitBtn"
+  }
+}

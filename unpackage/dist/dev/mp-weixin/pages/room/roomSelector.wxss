@@ -1,0 +1,30 @@
+
+.room-state{
+	color:#F0AD4E;
+	font-size: 30rpx;
+}
+.room-name{
+	-webkit-box-flex:1;
+	-webkit-flex:1;
+	        flex:1;
+	color:#111; 
+	font-size: 30rpx;
+}
+.room-list{
+	background: #fff;
+}
+.room-item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin:0 35rpx;
+	height:90rpx;
+	border-bottom: 1rpx solid #eee;
+}
+

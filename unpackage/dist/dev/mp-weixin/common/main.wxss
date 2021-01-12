@@ -1,0 +1,60 @@
+
+@font-face {
+  font-family: 'iconfont';  /* project id 1314453 */
+  src: url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.eot');
+  src: url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1314453_r04tdl3z6di.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 50rpx;
+  color:#ddd;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconweb__zanwujilu:before {
+  content: "\e636";
+}
+.iconicon-test:before {
+  content: "\e63c";
+}
+/* 项目中公共的样式 */
+page{
+	height: 100%;
+	background-color: #F0F1F3;
+}
+.page {
+		width: 100%;
+		background-color: #F0F1F3;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+}
+/* 表单 */
+input {
+	height: 60rpx;
+	padding: 0;
+	line-height:80rpx;
+	font-size:30rpx;
+	color:#111;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.placeholder-cls{
+	font-size:30rpx;
+	color:#bbb;
+}
+.split {
+		height: 20rpx;
+		background-color: #F0F1F3;
+}
+

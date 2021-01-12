@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "租客",
+  "usingComponents": {
+    "search-item": "/components/searchItem",
+    "no-data": "/components/noData"
+  }
+}

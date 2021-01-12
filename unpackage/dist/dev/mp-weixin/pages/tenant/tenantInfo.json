@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "租客信息",
+  "usingComponents": {
+    "section-title": "/components/sectionTitle",
+    "input-item": "/components/inputItem",
+    "select-item": "/components/selectItem",
+    "bottom-btn": "/components/bottomBtn"
+  }
+}

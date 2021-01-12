@@ -1,0 +1,1 @@
+<view class="item-box"><text>{{title}}</text><picker value="{{sIndex}}" range="{{arrayData}}" data-event-opts="{{[['change',[['bindPickerChange',['$event']]]]]}}" bindchange="__e"><label class="_span">{{arrayData[sIndex]}}</label></picker></view>

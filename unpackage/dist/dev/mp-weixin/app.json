@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/tabBar/main/main",
+    "pages/tabBar/user/user",
+    "pages/tenant/addTenant",
+    "pages/tenant/bill/bill",
+    "pages/tenant/tenantInfo",
+    "pages/tenant/tenant",
+    "pages/room/roomSelector",
+    "pages/bill/billDetails",
+    "pages/bill/bill"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "租房助手",
+    "navigationBarBackgroundColor": "#3A3A3A",
+    "backgroundColor": "#F0F1F3",
+    "backgroundColorTop": "#F4F5F6",
+    "backgroundColorBottom": "#F4F5F6"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#F33E54",
+    "borderStyle": "black",
+    "backgroundColor": "#F8F8F8",
+    "list": [
+      {
+        "pagePath": "pages/tabBar/main/main",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/homeactive.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tabBar/user/user",
+        "iconPath": "static/tabbar/me.png",
+        "selectedIconPath": "static/tabbar/meactive.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "演示定位能力"
+    }
+  },
+  "usingComponents": {}
+}
