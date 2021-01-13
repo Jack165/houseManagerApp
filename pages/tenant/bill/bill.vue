@@ -7,7 +7,7 @@
 					<text class="middle-text1">张三</text>
 					<text class="middle-text2">鑫都家园3号楼201</text>
 				</view>
-				<text :class="item.state == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{item.state}}</text>
+				<text :class="state == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{state}}</text>
 			</view>
 		</view>
 		<view class="bill-view" v-for="(item,index) in bills" :key="index" @tap="showPage('../../../pages/bill/billDetails')">
@@ -42,7 +42,8 @@
 						state:'已结算',
 						money:3000
 					}
-				]
+				],
+				state:'退租'
 			}
 		}
 	}
