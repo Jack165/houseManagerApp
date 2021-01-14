@@ -28,7 +28,7 @@
 		</view>
 		<view class="item-box">
 			<text class="item-title">缴费周期</text>
-			<text class="state-2">{{collectDate}} ~ {{endChangeDate}}</text>
+			<text class="state-2">{{startChangeDate}} ~ {{endChangeDate}}</text>
 		</view>
 		<view class="split"></view>
 		<view class="item-box">
@@ -85,55 +85,58 @@
 	import bottomBtn from '../../components/bottomBtn.vue';
 	var id;
 	export default {
-		
+
 		onLoad(option) {
-		id=option.id;
+			id = option.id;
 		},
 		data() {
 			var result;
-			if(id){
+			var billUrl = this.Common.baseUrl + '/bill/detail';
+			if (id) {
 				uni.request({
-					url: 'https://wechat.feixingtianxia.cn/house/get_billDetail', //仅为示例，并非真实接口地址。
+					url: billUrl, //仅为示例，并非真实接口地址。
 					data: {
 						id: id
 					},
+					method: "POST",
 					header: {
-						'custom-header': 'hello' //自定义请求头信息
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
 					},
 					success: (res) => {
-						console.log(res.data);
+						console.log(JSON.stringify(res))
 						result = res.data.data;
-						this.status= result.status;
-						this.collectDates= result.collectDates;
-						this.startChangeDate= result.startChangeDate;
-						this.endChangeDate= result.endChangeDate;
-						this.receivableCost= result.receivableCost;
-						this.tenant= result.tenant;
-						this.rent= result.rent;
-						this.deposit= result.deposit;
-						this.watterCost= result.watterCost;
-						this.electricCost= result.electricCost;
-						this.propertyCost= result.propertyCost;
-						this.broadbandCost= result.broadbandCost;
-						
+						this.status = result.status;
+						this.collectDate = result.collectDate;
+						this.startChangeDate = result.startChangeDate;
+						this.endChangeDate = result.endChangeDate;
+						this.receivableCost = result.receivableCost;
+						this.tenant = result.tenant;
+						this.rent = result.rent;
+						this.deposit = result.deposit;
+						this.watterCost = result.watterCost;
+						this.electricCost = result.electricCost;
+						this.propertyCost = result.propertyCost;
+						this.broadbandCost = result.broadbandCost;
+
 					}
 				});
 			}
-			
+
 
 			return {
-				        "status":"xxx",
-				        "collectDate":"2020-1-1",
-				        "startChangeDate":"2020-1-1",
-				        "endChangeDate":"2020-1-7",
-				        "receivableCost":"00",
-				        "tenant":"xxx",
-				        "rent":"100",
-				        "deposit":"1000",
-				        "watterCost":"10",
-				        "electricCost":"88",
-				        "propertyCost":"20",
-				        "broadbandCost":""
+				"status": "xxx",
+				"collectDate": "xxx",
+				"startChangeDate": "xxx",
+				"endChangeDate": "xxx",
+				"receivableCost": "xxx",
+				"tenant": "xxx",
+				"rent": "xxx",
+				"deposit": "xxx",
+				"watterCost": "xxx",
+				"electricCost": "xxx",
+				"propertyCost": "xxx",
+				"broadbandCost": "xxx"
 			}
 		},
 		components: {
@@ -147,12 +150,28 @@
 				});
 			},
 			billOver() {
-				uni.showToast({
-					title: '已到账',
-					duration: 2000
+				var billUrl = this.Common.baseUrl + '/bill/received';
+				uni.request({
+					url: billUrl, //仅为示例，并非真实接口地址。
+					data: {
+						id: id
+					},
+					method: "POST",
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					success: (res) => {
+						console.log(res.data)
+						uni.showToast({
+							title: res.data.msg,
+							duration: 2000
+						});
+
+					}
 				});
-			}
-		}
+			},
+		},
 	}
 </script>
 

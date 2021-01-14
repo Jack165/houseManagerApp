@@ -2,30 +2,17 @@
 	<view class="page">
 		<viwe class="top-search">
 			<view style="flex:1;">
-				<searchItem placeholder="请输入租客名" @getKeyWord="search" />
+				<searchItem placeholder="请输入房产地址" @getKeyWord="search" />
 			</view>
 			<span class="iconfont" style="margin-right: 35rpx;color:#333">&#xe695;</span>
 		</viwe>
-		<viwe class="bill-type">
-			<view :class="params.type == 0 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:0})">
-				<text class="">全部</text>
-			</view>
-			<viw class="type-split"></viw>
-			<view :class="params.type == -1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:-1})">
-				<text class="">未收</text>
-			</view>
-			<viw class="type-split"></viw>
-			<view :class="params.type == 1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:1})">
-				<text class="">已收</text>
-			</view>
-		</viwe>
 
-		<view class="bill-view" v-for="(item,index) in bills" :key="index" @tap="jumpToDetails(item.id)">
+		<view class="bill-view" v-for="(item,index) in bills" :key="index" @tap="jumpToNext(item)">
 			<view class="bill-left-view">
-				<text class="bill-left-text1">{{item.name}}</text>
-				<text class="bill-left-text2">{{item.state}}</text>
+				
+				<text class="bill-left-text2">{{item.addressDetail}}</text>
 			</view>
-			<text class="bill-right-text">{{item.money}}</text>
+			<text class="bill-right-text">{{item.estimatePrice}}</text>
 		</view>
 	</view>
 </template>
@@ -33,23 +20,32 @@
 <script>
 	import searchItem from '@/components/searchItem.vue';
 	export default {
+		
 		data() {
 			//alert(this.Common.baseUrl);
-			var billUrl=this.Common.baseUrl+'/bill/list';
-			console.log(billUrl);
+			var billUrl = this.Common.baseUrl + '/house/list';
+			var userId;
+			uni.getStorage({
+				key: "userId",
+				success(e) {
+					userId = e.data;
+				}
+			});
 			uni.request({
 				url: billUrl,
 				data: {
-					text: 'uni.request'
+					userId: userId
 				},
+				method: "POST",
 				header: {
-					'custom-header': 'hello' //自定义请求头信息
+					'content-Type': 'application/json',
+					'Accept': 'application/json'
 				},
 				success: (res) => {
-	            console.log(JSON.stringify(res))
+					console.log(JSON.stringify(res))
 					this.bills = res.data.data;
-			
-			
+
+
 				}
 			});
 			return {
@@ -79,10 +75,10 @@
 				this.params = Object.assign({}, this.params, param);
 			},
 
-			jumpToDetails(id) {
+			jumpToNext(item) {
 				//  @tap="showPage('../../pages/bill/billDetails?id={{item.id}}')"
 				uni.navigateTo({
-					url: "../../pages/bill/billDetails?id=" + id
+					url: "../../pages/tenant/addTenant?id=" + item.id+"&addressDetail="+item.addressDetail
 					// url:"../component/classdetails/classdetails?newsid="+ newsid,
 
 				});

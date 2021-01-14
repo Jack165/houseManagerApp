@@ -4,10 +4,26 @@
 			<sectionTitle>
 				<text slot="title">租客基本信息</text>
 			</sectionTitle>
-			<inputItem ref="name" title="姓名" placeholder="租客姓名" />
-			<inputItem ref="phone" title="号码" placeholder="租客电话号码" />
-			<inputItem ref="idcard" title="身份证是号" placeholder="租客身份证号码" />
-			<selectItem ref="sex" title="性别" :arrayData="['男','女']" :sIndex="sexIndex" @bindPickerChange="sexChange" />
+			<view class="fee-box">
+				<span>姓名：</span>
+				<input @input="name" title="姓名" placeholder="租客姓名" />
+			</view>
+			<view class="fee-box">
+				<span>号码：</span>
+				<input @input="phone" title="号码" placeholder="租客姓名" />
+			</view>
+			<view class="fee-box">
+				<span>身份证号：</span>
+				<input @input="idcard" type="idcard" title="身份证是号" placeholder="租客姓名" />
+			</view>
+			<view class="fee-box">
+				<span>性别：</span>
+			<radio-group @change="radioChange">
+			    <label v-for="i in sexItems">
+			        <radio :value="i.name" :checked="i.checked"/>{{i.value}}
+			    </label>
+			</radio-group>
+			</view>
 		</view>
 		<view class="split"></view>
 		<view class="info-view">
@@ -15,9 +31,8 @@
 				<text slot="title">房屋信息</text>
 			</sectionTitle>
 			<view class="item-box">
-				<text>入住房号</text>
-				<span class="room-name">福州市金钻世家8号楼4房间</span>
-				<span class="iconfont" style="font-size:50rpx;color:#ddd">&#xe672;</span>
+				<text>入住地址</text>
+				<span>{{addressDetail}}</span>
 			</view>
 		</view>
 		<view class="split"></view>
@@ -35,11 +50,11 @@
 					<text class="fee-item-text">水费</text>
 				</view>
 				<view class="fee-item-box">
-					<input placeholder-class="price-laceholder" placeholder="0.00" />
+					<input @input="waterPrice" placeholder-class="price-laceholder" placeholder="0.00" />
 					<span>元/吨</span>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+					<input @input="waterInitPrice" style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
 				</view>
 			</view>
 			<view class="fee-box">
@@ -47,11 +62,11 @@
 					<text class="fee-item-text">电费</text>
 				</view>
 				<view class="fee-item-box">
-					<input placeholder-class="price-laceholder" placeholder="0.00" />
-					<span>元/吨</span>
+					<input @input="electricityPrice" placeholder-class="price-laceholder" placeholder="0.00" />
+					<span>元/度</span>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+					<input @input="electricityInitPrice" style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
 				</view>
 			</view>
 			<view class="fee-box">
@@ -59,7 +74,7 @@
 					<text class="fee-item-text">宽带费</text>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+					<input @input="broadbandPrice" style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
 				</view>
 				<view class="fee-item-box">
 					/
@@ -77,7 +92,7 @@
 				</view>
 			</view>
 		</view>
-		<submitBtn cancelText="取消" confirmText="保存" @cancelCallBack="cancelFun" @confirmCallBack="confirmFun"/>
+		<submitBtn cancelText="取消" confirmText="保存" @cancelCallBack="cancelFun" @confirmCallBack="confirmFun" />
 	</view>
 </template>
 
@@ -86,12 +101,32 @@
 	import inputItem from '@/components/inputItem.vue';
 	import selectItem from '@/components/selectItem.vue';
 	import submitBtn from '@/components/submitBtn.vue';
+	var houseId;
+	var houseAddress;
+	var name ;
+	var phone ;
+	var idcard ;
+	var sex ;
+	var waterPrice ;
+	var electricityPrice ;
+	var broadbandPrice ;
+	var waterInitPrice ;
+	var electricityPrice ;
+
 	export default {
+
+		onLoad(option) {
+			this.addressDetail = option.addressDetail;
+			houseId = option.id;
+			houseAddress = option.addressDetail;
+
+		},
 		data() {
 			return {
 				// array: ['中国', '美国', '巴西', '日本'],
-				sexData: ['男', '女'],
-				sexIndex: 0
+				sexItems: [{"name":"男","value":"男","checked":"true"},{"name":"女","value":"女"}],
+				sexIndex:0
+
 			}
 		},
 		components: {
@@ -101,12 +136,44 @@
 			submitBtn
 		},
 		methods: {
+			radioChange: function(e) {
+				sex=e.detail.value;
+			   // console.log('radio发生change事件，携带value值为：', e.detail.value)//e.detail.value就是每次选择后得出来的值
+			  },
 			showPage(e) {
 				uni.navigateTo({
 					url: e
 				});
 				return false;
 			},
+			name(e) {
+				name = e.detail.value;
+			},
+			phone(e) {
+				phone = e.detail.value;
+			},
+			idcard(e) {
+				idcard = e.detail.value;
+			},
+			sex(e) {
+				sex = e.detail.value;
+			},
+			waterPrice(e) {
+				waterPrice = e.detail.value;
+			},
+			electricityPrice(e) {
+				electricityPrice = e.detail.value;
+			},
+			broadbandPrice(e) {
+				broadbandPrice = e.detail.value;
+			},
+			waterInitPrice(e) {
+				waterInitPrice = e.detail.value;
+			},
+			electricityPrice(e) {
+				electricityPrice = e.detail.value;
+			},
+
 			getVal() {
 				console.log(this.$refs.name.inputVal);
 			},
@@ -115,10 +182,72 @@
 				this.sexIndex = val;
 				console.log(this.sexIndex);
 			},
-			cancelFun(){
+			cancelFun() {
 				console.log('取消了');
 			},
-			confirmFun(){
+			confirm(e) {
+				console.log(e);
+			},
+			
+			confirmFun() {
+				var userId;
+				uni.getStorage({
+					key: "userId",
+					success(e) {
+						userId = e.data;
+					}
+				});
+
+
+				var contractUrl = this.Common.baseUrl + '/contract//add';
+				uni.request({
+					url: contractUrl,
+					method: "POST",
+					data: {
+						"contract": {
+							"housownerId": userId,
+							"housePropertyId": houseId,
+							"housePropertyName": houseAddress
+						},
+						"renter": {
+							"name": name,
+							"cellPhone": phone,
+							"idCard": idcard,
+							"sex": sex
+						},
+						"costList": [{
+								"costName": "水费",
+								"price": waterPrice,
+								"unit": "元/吨",
+								"initData": waterInitPrice
+							},
+							{
+								"costName": "电费",
+								"price": electricityPrice,
+								"unit": "元/度",
+								"initData": electricityPrice
+							},
+							{
+								"costName": "宽带费",
+								"price": broadbandPrice,
+								"unit": "元/月",
+								"initData": ""
+							},
+						]
+
+					},
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					success: (res) => {
+						console.log(JSON.stringify(res))
+						this.bills = res.data.data;
+
+
+					}
+				});
+
 				console.log('保存了');
 			}
 		}
@@ -146,6 +275,7 @@
 		justify-content: center;
 		align-items: center;
 	}
+
 	.submit-btn-view {
 		margin: 15rpx 35rpx;
 		display: flex;
@@ -194,7 +324,7 @@
 	}
 
 	.fee-text {
-		flex:1;
+		flex: 1;
 		text-align: center;
 		color: #222;
 		font-size: 28rpx;

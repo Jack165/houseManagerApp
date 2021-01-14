@@ -9912,6 +9912,23 @@ var index = {
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 3)))
 
+/***/ }),
+/* 16 */
+/*!***********************************************************!*\
+  !*** D:/Project/miniapp/houseManagerApp/common/common.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var baseUrl = 'http://172.16.11.245:19200';
+function add(a, b) {
+  return a + b;
+}var _default =
+{
+  baseUrl: baseUrl,
+  add: add };exports.default = _default;
+
 /***/ })
 ]]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

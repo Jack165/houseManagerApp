@@ -4,10 +4,27 @@
 			<sectionTitle>
 				<text slot="title">租客基本信息</text>
 			</sectionTitle>
-			<inputItem ref="name" title="姓名" placeholder="租客姓名" value="张三" readonly="1"/>
-			<inputItem ref="phone" title="号码" placeholder="租客电话号码" value="18596958748" readonly="1"/>
-			<inputItem ref="idcard" title="身份证是号" placeholder="租客身份证号码" value="110101199003071313" readonly="1"/>
-			<selectItem ref="sex" title="性别" :arrayData="['男','女']" :sIndex="sexIndex" @bindPickerChange="sexChange" readonly="1"/>
+			<view class="fee-box">
+				<span>姓名：</span>
+				<text>{{name}}</text>
+			</view>
+			<view class="fee-box">
+				<span>号码：</span>
+				<text>{{phone}}</text>
+
+			</view>
+			<view class="fee-box">
+				<span>身份证号：</span>
+				<text>{{idcard}}</text>
+			</view>
+			<view class="fee-box">
+				<span>性别：</span>
+				<radio-group @change="radioChange" disabled="true">
+					<label v-for="i in sexItems">
+						<radio :value="i.name" :checked="i.checked" />{{i.value}}
+					</label>
+				</radio-group>
+			</view>
 		</view>
 		<view class="split"></view>
 		<view class="info-view">
@@ -16,7 +33,7 @@
 			</sectionTitle>
 			<view class="item-box">
 				<text>入住房号</text>
-				<span class="room-name">福州市金钻世家8号楼4房间</span>
+				<span class="room-name">{{addressDetail}}</span>
 				<span class="iconfont" style="font-size:50rpx;color:#ddd">&#xe672;</span>
 			</view>
 		</view>
@@ -35,11 +52,12 @@
 					<text class="fee-item-text">水费</text>
 				</view>
 				<view class="fee-item-box">
-					<input placeholder-class="price-laceholder" placeholder="0.00" />
+					<text>{{waterPrice}}</text>
 					<span>元/吨</span>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+				
+					 <text>{{waterInitPrice}}</text>
 				</view>
 			</view>
 			<view class="fee-box">
@@ -47,11 +65,12 @@
 					<text class="fee-item-text">电费</text>
 				</view>
 				<view class="fee-item-box">
-					<input placeholder-class="price-laceholder" placeholder="0.00" />
-					<span>元/吨</span>
+					 <text>{{electricityPrice}}</text>
+					<span>元/度</span>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+					
+					  <text>{{electricityInitPrice}}</text>
 				</view>
 			</view>
 			<view class="fee-box">
@@ -59,7 +78,7 @@
 					<text class="fee-item-text">宽带费</text>
 				</view>
 				<view class="fee-item-box">
-					<input style="text-align: center;" placeholder-class="price-laceholder" placeholder="0.00" />
+				<text>{{broadbandPrice}}</text>
 				</view>
 				<view class="fee-item-box">
 					/
@@ -77,11 +96,9 @@
 				</view>
 			</view>
 		</view>
-		<bottomBtn leftText="信息修改" rightText="账单查看" @leftCallBack="this.showPage('../../pages/tenant/updateTenant')" @rightCallBack="showPage('../../pages/tenant/bill/bill')"/>
-		<!-- <view class="bottom-btn-view">
-			<view class="bottom-btn bottom-btn-left" @click="cancelClick">信息修改</view>
-			<view class="bottom-btn bottom-btn-right" @click="confirmClick">账单查看</view>
-		</view> -->
+		<bottomBtn leftText="信息修改" rightText="账单查看" @leftCallBack="this.showPage('../../pages/tenant/updateTenant')"
+		 @rightCallBack="showPage('../../pages/tenant/bill/bill')" />
+
 	</view>
 </template>
 
@@ -90,12 +107,64 @@
 	import inputItem from '@/components/inputItem.vue';
 	import selectItem from '@/components/selectItem.vue';
 	import bottomBtn from '@/components/bottomBtn.vue';
-	export default{
+	var id;
+	var houseId;
+	var houseAddress;
+	var name;
+	var phone;
+	var idcard;
+	var sex;
+	var waterPrice;
+	var electricityPrice;
+	var broadbandPrice;
+	var waterInitPrice;
+	var electricityPrice;
+	export default {
+
+		onLoad(option) {
+			id = option.id;
+
+		},
 		data() {
+
+			var contractUrl = this.Common.baseUrl + '/contract//select';
+			uni.request({
+				url: contractUrl,
+				method: "POST",
+				data: {
+					"id": id
+				},
+				header: {
+					'content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				success: (res) => {
+					console.log(JSON.stringify(res))
+					var relust = res.data;
+					this.name = relust.renter.name;
+					this.phone = relust.renter.cellPhone;
+					this.idcard = relust.renter.idCard;
+					this.addressDetail=relust.contract.housePropertyName;
+					this.waterPrice=relust.costList[0].price;
+					this.waterInitPrice=relust.costList[0].price;
+					this.electricityPrice=relust.costList[1].price;
+					this.electricityInitPrice=relust.costList[1].price;
+                    this.broadbandPrice=relust.costList[2].price;
+				}
+			});
+
+
 			return {
-				// array: ['中国', '美国', '巴西', '日本'],
-				sexData: ['男', '女'],
-				sexIndex: 0
+				sexItems: [{
+					"name": "男",
+					"value": "男",
+					"checked": "true"
+				}, {
+					"name": "女",
+					"value": "女"
+				}],
+				sexIndex: 0,
+				name: "aaa"
 			}
 		},
 		components: {
@@ -108,10 +177,10 @@
 </script>
 
 <style>
-	.container{
+	.container {
 		padding-bottom: 100rpx;
 	}
-	
+
 	.fee-item-text {
 		color: #111;
 		font-size: 30rpx;
@@ -152,7 +221,7 @@
 	}
 
 	.fee-text {
-		flex:1;
+		flex: 1;
 		text-align: center;
 		color: #222;
 		font-size: 28rpx;
@@ -204,4 +273,3 @@
 
 	}
 </style>
-

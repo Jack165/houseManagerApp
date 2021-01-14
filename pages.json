@@ -2,17 +2,16 @@
 	"pages": [
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 	
-		
-		{
-			"path": "pages/tabBar/main/main",
-			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		},
 		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登陆"
+			}
+		},
+		{
+			"path": "pages/tabBar/main/main",
+			"style": {
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -62,10 +61,15 @@
 			"style": {
 				"navigationBarTitleText": "账单"
 			}
+		},
+		{
+			"path": "pages/tenant/myHouse",
+			"style": {
+				"navigationBarTitleText": "我的房产"
+			}
 		}
 		
-		
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "租房助手",

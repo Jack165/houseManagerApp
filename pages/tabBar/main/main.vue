@@ -114,10 +114,7 @@
 					duration: 5000
 				});
 			} else {
-				uni.showToast({
-					title:token,
-					duration: 5000
-				});
+		
 				uni.request({
 					url: 'https://wechat.feixingtianxia.cn/house/get_index', 
 					data: {

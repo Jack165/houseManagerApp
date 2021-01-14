@@ -5,13 +5,13 @@
 			<noData/>
 		</view>
 		<view style="background: #fff;" v-else>
-			<view class="tenant-item" v-for="(item,index) in tenants" :key="index" @tap="this.showPage('../../pages/tenant/tenantInfo')">
+			<view class="tenant-item" v-for="(item,index) in tenants" :key="index" @tap="showPage(item.id)">
 				<image class="tenant-img" src="../../static/tenant.jpg"></image>
 				<view class="middle-item">
 					<text class="middle-text1">{{item.name}}</text>
 					<text class="middle-text2">{{item.room}}</text>
 				</view>
-				<text :class="item.state == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{item.state}}</text>
+				<text :class="item.state == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{item.status}}</text>
 			</view>
 		</view>
 		<view class="add-tenant"  @tap="showPage('../../pages/tenant/addTenant')">
@@ -25,23 +25,44 @@
 	import noData from '@/components/noData.vue';
 	export default{
 		data(){
+			var result;
+			var contractUrl = this.Common.baseUrl + '/contract/list';
+			var userId;
+			uni.getStorage({
+				key: "userId",
+				success(e) {
+					userId = e.data;
+				}
+			});
+			uni.request({
+				url: contractUrl, //仅为示例，并非真实接口地址。
+				data: {
+					userId: userId
+				},
+				method: "POST",
+				header: {
+					'content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				success: (res) => {
+					console.log(JSON.stringify(res))
+					if(res.data.code===200){
+						result = res.data.data;
+						this.tenants=result;
+					}
+			
+				}
+			});
+			
 			return{
 				tenants:[
 					{
-						name:'张三',
-						room:'鼓楼新村5号楼403',
+						id:0,
+						name:'xx',
+						room:'xxxxxx',
 						state:'正常'
 					},
-					{
-						name:'李四',
-						room:'水部元每宿舍楼5号楼403',
-						state:'退租'
-					},
-					{
-						name:'周五',
-						room:'福州市台江区福州市台江区先锋大厦先锋大厦5号楼403',
-						state:'正常'
-					}
+				
 				]
 			};
 		},
@@ -51,11 +72,14 @@
 		},
 		methods:{
 			showPage(e) {
+				
 				uni.navigateTo({
-					url: e
+					url: "../../pages/tenant/tenantInfo?id="+e
 				});
 				return false;
 			},
+			
+			
 			search(keyWord){
 				console.log(keyWord);
 			}

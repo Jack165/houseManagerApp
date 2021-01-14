@@ -8,13 +8,13 @@
 		</view>
 		<view class="form">
 			<view class="inputWrapper">
-				<input class="input" type="text" v-model="callphone"  value="" placeholder="请输入手机号" />
+				<input class="input" type="text" v-model="callphone" value="" placeholder="请输入手机号" />
 			</view>
 			<view class="inputWrapper">
 				<input class="input" type="password" v-model="password" value="" placeholder="请输入密码" />
 			</view>
 			<view class="loginBtn">
-				<text class="btnValue"  @click="login">登录</text>
+				<text class="btnValue" @click="login">登录</text>
 			</view>
 			<view class="forgotBtn">
 				<text>找回密码</text>
@@ -35,23 +35,59 @@
 		},
 		methods: {
 			login() {
-			 let username = this.callphone;
-				    //密码
-		     let password = this.password;
+				let account = this.callphone;
+				//密码
+				let pwd = this.password;
+				var billUrl = this.Common.baseUrl + '/user/getUser';
+				console.log(billUrl);
+				uni.request({
+					url: billUrl,
+					data: {
+						account: account,
+						pwd: pwd
 
-			alert("登陆"+username+"/"+password);
-			uni.setStorage({
-			key:"token",
-			data:"qwewqeqw"
-			});
-			uni.getStorage({
-		     key:"token",
-			success(e){
-			//e.data//这就是你想要取的token
-			alert("值:"+e.data);
-			}
-			})
+					},
+					method: "POST",
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					success: (res) => {
+						if(res.data.code===200){
+							console.log(JSON.stringify(res))
+							uni.setStorage({
+								key: "token",
+								data: "qwewqeqw"
+							});
+							uni.setStorage({
+								key: "userId",
+								data: res.data.data.id
+							});
+							uni.getStorage({
+								key: "token",
+								success(e) {
+									//e.data//这就是你想要取的token
+									//alert("值:" + e.data);
+								}
+							});
+							alert("登陆");
+							uni.switchTab({
+								url: "../tabBar/main/main"
+							});
+						}else{
+							uni.showToast({
+								title: res.data.msg,
+								image:'../../static/zhang.png', 
+								duration: 2000
+							});
+						}
+					
+
+
+					}
+				});
 			
+
 			},
 
 		}
