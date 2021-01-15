@@ -7,7 +7,7 @@
 						<text class="top-text1">应收</text>
 						<text class="top-text2">{{receivableCost}}</text>
 					</view>
-					<text class="top-text3">{{tenant}}鼓楼区先锋小区602-张三</text>
+					<text class="top-text3">{{tenant}}</text>
 				</view>
 				<view class="top-right">
 					<text class="top-text4" @tap="onClickChildText">催租</text>
@@ -88,8 +88,7 @@
 
 		onLoad(option) {
 			id = option.id;
-		},
-		data() {
+			
 			var result;
 			var billUrl = this.Common.baseUrl + '/bill/detail';
 			if (id) {
@@ -118,11 +117,15 @@
 						this.electricCost = result.electricCost;
 						this.propertyCost = result.propertyCost;
 						this.broadbandCost = result.broadbandCost;
-
+			
 					}
 				});
 			}
-
+			
+			
+		},
+		data() {
+			
 
 			return {
 				"status": "xxx",
@@ -146,6 +149,12 @@
 			billUpdate() {
 				uni.showToast({
 					title: '账单修改',
+					duration: 2000
+				});
+			},
+			onClickChildText(){
+				uni.showToast({
+					title: '未开放',
 					duration: 2000
 				});
 			},

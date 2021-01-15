@@ -97,7 +97,7 @@
 			</view>
 		</view>
 		<bottomBtn leftText="信息修改" rightText="账单查看" @leftCallBack="this.showPage('../../pages/tenant/updateTenant')"
-		 @rightCallBack="showPage('../../pages/tenant/bill/bill')" />
+		 @rightCallBack="jumpToDetails()" />
 
 	</view>
 </template>
@@ -119,14 +119,12 @@
 	var broadbandPrice;
 	var waterInitPrice;
 	var electricityPrice;
+	var relust;
 	export default {
 
 		onLoad(option) {
 			id = option.id;
-
-		},
-		data() {
-
+			
 			var contractUrl = this.Common.baseUrl + '/contract//select';
 			uni.request({
 				url: contractUrl,
@@ -140,7 +138,7 @@
 				},
 				success: (res) => {
 					console.log(JSON.stringify(res))
-					var relust = res.data;
+					 relust= res.data;
 					this.name = relust.renter.name;
 					this.phone = relust.renter.cellPhone;
 					this.idcard = relust.renter.idCard;
@@ -149,10 +147,17 @@
 					this.waterInitPrice=relust.costList[0].price;
 					this.electricityPrice=relust.costList[1].price;
 					this.electricityInitPrice=relust.costList[1].price;
-                    this.broadbandPrice=relust.costList[2].price;
+			        this.broadbandPrice=relust.costList[2].price;
 				}
 			});
+			
+			
+			
 
+		},
+		data() {
+
+		
 
 			return {
 				sexItems: [{
@@ -164,7 +169,21 @@
 					"value": "女"
 				}],
 				sexIndex: 0,
-				name: "aaa"
+				name: ""
+			}
+		},	
+		methods: {
+
+			jumpToDetails() {
+				//  @tap="showPage('../../pages/bill/billDetails?id={{item.id}}')"
+				uni.navigateTo({
+					url: "../../pages/tenant/bill/bill?rentarId="+ relust.renter.id
+					+"&rentarName="+relust.renter.name
+					+"&rentarAddress="+relust.contract.housePropertyName
+					+"&rentarState"+relust.contract.status
+					// url:"../component/classdetails/classdetails?newsid="+ newsid,
+
+				});
 			}
 		},
 		components: {

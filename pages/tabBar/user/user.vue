@@ -1,11 +1,11 @@
 <template>
 	<view class="page">
-		<view v-if="hasLogin" class="hello">
+		<view v-if='hasLogin' class="hello">
 			<view class="uni-list">
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 					<view class="uni-list-cell-navigate">
 						手机号：
-						<text>{{userName}}</text>
+						<text>{{cellPhone}}</text>
 					</view>
 				</view>
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
@@ -14,15 +14,8 @@
 						<text>{{realName}}</text>
 					</view>
 				</view>
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-					<view class="uni-list-cell-navigate">
-						当前机构:
-						<text>{{orgName}}</text>
-					</view>
 
-				</view>
-				<view class="uni-list-cell uni-list-cell-last" hover-class="uni-list-cell-hover"
-				@tap="goDetail('../../pwd/pwd')">
+				<view class="uni-list-cell uni-list-cell-last" hover-class="uni-list-cell-hover" @tap="goDetail('../../pwd/pwd')">
 					<view class="uni-list-cell-navigate uni-navigate-right">
 						密码修改
 					</view>
@@ -30,11 +23,7 @@
 			</view>
 			<view class="uni-list-cell-divider"></view>
 			<view class="uni-list">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover" @tap="goDetail('../../../platform/feedback/feedback')">
-					<view class="uni-list-cell-navigate uni-navigate-right">
-						意见建议
-					</view>
-				</view>
+
 				<!-- <view class="uni-list-cell" hover-class="uni-list-cell-hover">
 					<view class="uni-list-cell-navigate uni-navigate-right">
 						分享有礼
@@ -54,8 +43,8 @@
 				您好。
 			</view>
 			<view class="ul">
-				<view>这是登录页。</view>
-				<view>点击 “登录”登录您的账户”</view>
+				<view>您还未登陆。</view>
+				<view>点击 “登录”去登陆页登录您的账户”</view>
 			</view>
 		</view>
 		<view class="btn-row">
@@ -75,36 +64,50 @@
 	} from 'vuex'
 
 	export default {
-		computed: {
-			...mapState(['hasLogin', 'forcedLogin', 'userName', 'realName', 'orgCode', 'orgName'])
+		data() {
+			return {
+				realName: "",
+				cellPhone: "",
+				received: "",
+				hasLogin:true
+			}
+		},
+		onLoad() {
+			const token = uni.getStorageSync("token");
+			if (typeof token === "undefined") {
+				bindLogout();
+			} else {
+				const cellPhone = uni.getStorageSync("cellPhone");
+
+				const name = uni.getStorageSync("name");
+				console.log("-->" + cellPhone)
+				console.log("-->" + name)
+				this.realName = name;
+				this.cellPhone = cellPhone;
+				this.hasLogin = true;
+			}
+		
+
+
 		},
 		methods: {
-			...mapMutations(['logout']),
 			bindLogin() {
-			uni.getStorage({
-			 key:"token",
-			success(e){
-			//e.data//这就是你想要取的token
-			alert("值:"+e.data);
-			}
-			})
 				uni.navigateTo({
 					url: '../../login/login',
-					
+
 				});
-				
+
 			},
 			bindLogout() {
-				this.logout();
-				uni.removeStorageSync('userInfo');
+
+				uni.removeStorageSync('token');
 				/**
 				 * 如果需要强制登录跳转回登录页面
 				 */
-				if (this.forcedLogin) {
-					uni.reLaunch({
-						url: '../../login/login',
-					});
-				}
+				uni.reLaunch({
+					url: '../../login/login',
+				});
+
 			},
 			goDetail: function(e) {
 				uni.navigateTo({

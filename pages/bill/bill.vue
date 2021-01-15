@@ -33,25 +33,22 @@
 <script>
 	import searchItem from '@/components/searchItem.vue';
 	export default {
+			onLoad(option) {
+				var billUrl=this.Common.baseUrl+'/bill/list';
+				console.log(billUrl);
+				uni.request({
+					url: billUrl,
+					success: (res) => {
+				    console.log(JSON.stringify(res))
+						this.bills = res.data.data;
+				
+				
+					}
+				});
+			},
 		data() {
 			//alert(this.Common.baseUrl);
-			var billUrl=this.Common.baseUrl+'/bill/list';
-			console.log(billUrl);
-			uni.request({
-				url: billUrl,
-				data: {
-					text: 'uni.request'
-				},
-				header: {
-					'custom-header': 'hello' //自定义请求头信息
-				},
-				success: (res) => {
-	            console.log(JSON.stringify(res))
-					this.bills = res.data.data;
-			
-			
-				}
-			});
+	
 			return {
 				params: {
 					type: 0

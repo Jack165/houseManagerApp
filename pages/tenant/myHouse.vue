@@ -9,7 +9,7 @@
 
 		<view class="bill-view" v-for="(item,index) in bills" :key="index" @tap="jumpToNext(item)">
 			<view class="bill-left-view">
-				
+
 				<text class="bill-left-text2">{{item.addressDetail}}</text>
 			</view>
 			<text class="bill-right-text">{{item.estimatePrice}}</text>
@@ -20,17 +20,10 @@
 <script>
 	import searchItem from '@/components/searchItem.vue';
 	export default {
-		
-		data() {
+		onLoad(option) {
 			//alert(this.Common.baseUrl);
 			var billUrl = this.Common.baseUrl + '/house/list';
-			var userId;
-			uni.getStorage({
-				key: "userId",
-				success(e) {
-					userId = e.data;
-				}
-			});
+			const userId= uni.getStorageSync("userId");
 			uni.request({
 				url: billUrl,
 				data: {
@@ -48,6 +41,10 @@
 
 				}
 			});
+
+		},
+		data() {
+
 			return {
 				params: {
 					type: 0
@@ -78,7 +75,7 @@
 			jumpToNext(item) {
 				//  @tap="showPage('../../pages/bill/billDetails?id={{item.id}}')"
 				uni.navigateTo({
-					url: "../../pages/tenant/addTenant?id=" + item.id+"&addressDetail="+item.addressDetail
+					url: "../../pages/tenant/addTenant?id=" + item.id + "&addressDetail=" + item.addressDetail
 					// url:"../component/classdetails/classdetails?newsid="+ newsid,
 
 				});

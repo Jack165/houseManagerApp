@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tabBar/main/main",
     "pages/login/login",
+    "pages/tabBar/main/main",
     "pages/tabBar/user/user",
     "pages/tenant/addTenant",
     "pages/tenant/bill/bill",
@@ -10,7 +10,7 @@
     "pages/room/roomSelector",
     "pages/bill/billDetails",
     "pages/bill/bill",
-    "components/Common"
+    "pages/tenant/myHouse"
   ],
   "subPackages": [],
   "window": {

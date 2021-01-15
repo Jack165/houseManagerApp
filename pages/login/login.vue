@@ -27,11 +27,11 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				callphone: '',
+				password:''
 			}
 		},
 		onLoad() {
-
 		},
 		methods: {
 			login() {
@@ -53,24 +53,17 @@
 						'Accept': 'application/json'
 					},
 					success: (res) => {
+						console.log(JSON.stringify(res));
 						if(res.data.code===200){
 							console.log(JSON.stringify(res))
-							uni.setStorage({
-								key: "token",
-								data: "qwewqeqw"
-							});
-							uni.setStorage({
-								key: "userId",
-								data: res.data.data.id
-							});
-							uni.getStorage({
-								key: "token",
-								success(e) {
-									//e.data//这就是你想要取的token
-									//alert("值:" + e.data);
-								}
-							});
-							alert("登陆");
+				
+							uni.setStorageSync("token","qwewqeqw");
+							
+							uni.setStorageSync("userId",res.data.data.id);
+						    uni.setStorageSync("name",res.data.data.name);
+							uni.setStorageSync("cellPhone",res.data.data.cellPhone);
+							
+						    const value= uni.getStorageSync("userId");
 							uni.switchTab({
 								url: "../tabBar/main/main"
 							});

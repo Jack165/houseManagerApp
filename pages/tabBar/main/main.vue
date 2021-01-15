@@ -43,7 +43,7 @@
 		<view class="middle">
 			<view class="middle-item">
 				<text class="middle-text">本月待收</text>
-				<text class="middle-num">{{waitIn}}</text>
+				<text class="middle-num">{{waitInCost}}</text>
 			</view>
 			<view class="middle-split"></view>
 			<view class="middle-item">
@@ -59,15 +59,19 @@
 
 		<view class="promotion">
 			<text class="promotion-tip">为您推荐</text>
-			<view class="h-item">
-				<view>
-					<image class="h-img" src="../../../static/swiper2.jpg"></image>
-				</view>
-				<view class="h-text-view">
-					<text class="h-title">房屋地址福州市五一中路青州大厦2号楼</text>
-					<text class="h-footprint">张先生2小时前</text>
+
+			<view v-for="(item,index) in recommendList" :key="index" class="room-item">
+				<view class="h-item">
+					<view>
+						<image class="h-img" src="../../../static/swiper3.jpg"></image>
+					</view>
+					<view class="h-text-view">
+						<text class="h-title">{{item.addressDetail}}</text>
+						<text class="h-footprint">{{item.homeowners}}更新于{{item.updateTime}}</text>
+					</view>
 				</view>
 			</view>
+			<!--
 			<view class="h-item">
 				<view>
 					<image class="h-img" src="../../../static/swiper3.jpg"></image>
@@ -77,6 +81,7 @@
 					<text class="h-footprint">张先生2小时前</text>
 				</view>
 			</view>
+			-->
 		</view>
 
 	</view>
@@ -90,9 +95,10 @@
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName', 'companyCode']),
 		data() {
 			return {
-				'waitIn': 1,
-				'houseNum': 2,
-				'received': 3
+				waitInCost: 1,
+				houseNum: 2,
+				received: 3,
+				recommendList: []
 			}
 		},
 		onShow() {
@@ -101,35 +107,43 @@
 			}
 		},
 		onLoad() {
-			var token;
-			uni.getStorage({
-				key: "token",
-				success(e) {
-					token = e.data;
-				}
-			});
+
+			const userId = uni.getStorageSync("userId");
+			const token = uni.getStorageSync("token");
 			if (typeof token === "undefined") {
 				uni.showToast({
 					title: '未登陆',
 					duration: 5000
 				});
 			} else {
-		
+				var mainUrl = this.Common.baseUrl + '/index/get_index';
 				uni.request({
-					url: 'https://wechat.feixingtianxia.cn/house/get_index', 
+					url: mainUrl,
+					data: {
+						userId: userId
+					},
+					method: "POST",
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					success: (res) => {
+						var info = res.data.data;
+						this.waitInCost = info.waitIn;
+						this.houseNum = info.houseNum;
+						this.received = info.received;
+
+					}
+				});
+
+				var mainUrl = this.Common.baseUrl + '/index/get_recommend';
+				uni.request({
+					url: mainUrl,
 					data: {
 						text: 'uni.request'
 					},
-					header: {
-						'custom-header': 'hello' //自定义请求头信息
-					},
 					success: (res) => {
-
-						var info = res.data.data;
-						console.log('info-->' + info);
-						this.waitIn = info.waitIn;
-						this.houseNum = info.houseNum;
-						this.received = info.received;
+						this.recommendList = res.data.data;
 
 					}
 				});
