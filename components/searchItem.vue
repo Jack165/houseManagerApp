@@ -19,6 +19,7 @@
 		methods:{
 			inputChange(){
 				this.$emit('getKeyWord',this.inputVal);
+				return this.inputVal;
 			},
 			clear(){
 				this.inputVal = '';

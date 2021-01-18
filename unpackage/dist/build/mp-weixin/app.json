@@ -10,7 +10,9 @@
     "pages/room/roomSelector",
     "pages/bill/billDetails",
     "pages/bill/bill",
-    "pages/tenant/myHouse"
+    "pages/tenant/myHouse",
+    "pages/room/houseList",
+    "pages/room/roomDetail"
   ],
   "subPackages": [],
   "window": {

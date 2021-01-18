@@ -11,11 +11,11 @@
 				<text class="">全部</text>
 			</view>
 			<viw class="type-split"></viw>
-			<view :class="params.type == -1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:-1})">
+			<view :class="params.type == -1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:1})">
 				<text class="">未收</text>
 			</view>
 			<viw class="type-split"></viw>
-			<view :class="params.type == 1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:1})">
+			<view :class="params.type == 1 ? '.btn-type-active' : 'btn-type'" @tap="paramsChange({type:2})">
 				<text class="">已收</text>
 			</view>
 		</viwe>
@@ -32,12 +32,21 @@
 
 <script>
 	import searchItem from '@/components/searchItem.vue';
+	const userId= uni.getStorageSync("userId");
 	export default {
-			onLoad(option) {
-				var billUrl=this.Common.baseUrl+'/bill/list';
+			onShow(option) {
+				var billUrl=this.Common.baseUrl+'/bill/list?time=new Date().getTime()';
 				console.log(billUrl);
 				uni.request({
 					url: billUrl,
+					data: {
+						userId: userId
+					},
+					method: "POST",
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
 					success: (res) => {
 				    console.log(JSON.stringify(res))
 						this.bills = res.data.data;
@@ -74,6 +83,26 @@
 		methods: {
 			paramsChange(param) {
 				this.params = Object.assign({}, this.params, param);
+				var billUrl=this.Common.baseUrl+'/bill/list';
+				console.log(billUrl);
+				uni.request({
+					url: billUrl,
+					data: {
+						status: param.type,
+						userId: userId
+					},
+					method: "POST",
+					header: {
+						'content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					success: (res) => {
+				    console.log(JSON.stringify(res))
+						this.bills = res.data.data;
+				
+				
+					}
+				});
 			},
 
 			jumpToDetails(id) {
@@ -83,7 +112,35 @@
 					// url:"../component/classdetails/classdetails?newsid="+ newsid,
 
 				});
-			}
+			},
+			search(e){
+				if(e===''){
+					
+				}else{
+					var billUrl=this.Common.baseUrl+'/bill/search';
+					uni.request({
+						url: billUrl,
+						data: {
+							status: 0,
+							userId:userId,
+							name: e
+						},
+						method: "POST",
+						header: {
+							'content-Type': 'application/json',
+							'Accept': 'application/json'
+						},
+						success: (res) => {
+					    console.log(JSON.stringify(res))
+						this.bills = res.data.data;
+						this.$set(this.bills, res.data.data)
+						}
+					});
+				}
+			
+			},
+			
+			
 		},
 
 	}

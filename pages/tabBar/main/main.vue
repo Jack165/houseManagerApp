@@ -19,7 +19,7 @@
 				<image class="top-image" src="../../../static/zhang.png"></image>
 				<text class="top-text">账单</text>
 			</view>
-			<view class="top-item" @tap="showPage('../../../pages/crm/shoukuan/shoukuan')">
+			<view class="top-item" @tap="showPage('../../../pages/room/houseList?status=2')">
 				<image class="top-image" src="../../../static/kong.png"></image>
 				<text class="top-text">闲置</text>
 			</view>
@@ -27,7 +27,7 @@
 				<image class="top-image" src="../../../static/shou.png"></image>
 				<text class="top-text">收入</text>
 			</view>
-			<view class="top-item" @tap="showPage('../../../pages/crm/shoukuan/shoukuan')">
+			<view class="top-item" @tap="showPage('../../../pages/room/houseList?status=0')">
 				<image class="top-image" src="../../../static/fang.png"></image>
 				<text class="top-text">房产</text>
 			</view>
@@ -60,7 +60,7 @@
 		<view class="promotion">
 			<text class="promotion-tip">为您推荐</text>
 
-			<view v-for="(item,index) in recommendList" :key="index" class="room-item">
+			<view v-for="(item,index) in recommendList" :key="index" class="room-item" @tap="jumpToDetails(item.id)">
 				<view class="h-item">
 					<view>
 						<image class="h-img" src="../../../static/swiper3.jpg"></image>
@@ -116,7 +116,7 @@
 					duration: 5000
 				});
 			} else {
-				var mainUrl = this.Common.baseUrl + '/index/get_index';
+				var mainUrl = this.Common.baseUrl + '/index/get_index?time=new Date().getTime()';
 				uni.request({
 					url: mainUrl,
 					data: {
@@ -136,7 +136,7 @@
 					}
 				});
 
-				var mainUrl = this.Common.baseUrl + '/index/get_recommend';
+				var mainUrl = this.Common.baseUrl + '/index/get_recommend?time=new Date().getTime()';
 				uni.request({
 					url: mainUrl,
 					data: {
@@ -168,6 +168,15 @@
 					url: e
 				});
 				return false;
+			},
+			jumpToDetails(id) {
+			
+				//  @tap="showPage('../../pages/bill/billDetails?id={{item.id}}')"
+				uni.navigateTo({
+					url: "../../../pages/room/roomDetail?id=" + id
+					// url:"../component/classdetails/classdetails?newsid="+ newsid,
+			
+				});
 			},
 			getStatistics() {
 				let url = this.$url + "soApi/statistics/" + this.companyCode;

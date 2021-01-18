@@ -169,7 +169,16 @@
 					"value": "女"
 				}],
 				sexIndex: 0,
-				name: ""
+				name: "",
+				phone:"",
+				idcard:"",
+				addressDetail:"",
+				waterPrice:"",
+				waterInitPrice:"",
+				electricityPrice:"",
+				electricityInitPrice:"",
+				broadbandPrice:""
+				
 			}
 		},	
 		methods: {

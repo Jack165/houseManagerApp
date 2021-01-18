@@ -22,7 +22,7 @@
 	export default {
 		onLoad(option) {
 			//alert(this.Common.baseUrl);
-			var billUrl = this.Common.baseUrl + '/house/list';
+			var billUrl = this.Common.baseUrl + '/house/list?time=new Date().getTime()';
 			const userId= uni.getStorageSync("userId");
 			uni.request({
 				url: billUrl,

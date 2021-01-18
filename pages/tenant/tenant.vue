@@ -11,7 +11,7 @@
 					<text class="middle-text1">{{item.name}}</text>
 					<text class="middle-text2">{{item.room}}</text>
 				</view>
-				<text :class="item.state == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{item.status}}</text>
+				<text :class="item.status == '退租' ? 'tenant-right-text-red' : 'tenant-right-text'">{{item.status}}</text>
 			</view>
 		</view>
 		<view class="add-tenant" @tap="showAddPage()">

@@ -1,12 +1,10 @@
 {
   "description": "项目配置文件。",
- 
   "packOptions": {
     "ignore": []
   },
   "setting": {
     "urlCheck": false,
-    "checkSiteMap":false,
     "es6": true
   },
   "compileType": "miniprogram",
